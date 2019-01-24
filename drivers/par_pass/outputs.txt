@@ -1,0 +1,42 @@
+1.Comile file by write Makefile in same folder:
+        make
+  see the output :
+        ls
+
+output : ****************************************************************
+	 *
+Makefile  modules.order  Module.symvers  outputs.txt  para_pass.c  para_pass.ko  para_pass.mod.c  para_pass.mod.o  para_pass.o  README.md
+	 *
+	 ***************************************************************
+2.Insert module : 
+	sudo insmod para_pass.ko val=1 name="spanidea" arr=1,2
+   See the output :
+	dmesg | tail -3
+
+output : ****************************************************************
+	 *
+[21356.076910] var = 1
+[21356.076912] Name = spanidea
+[21356.076915] arr[0] = 1	
+[21356.076917] arr[1] = 2
+		 *
+	 ***************************************************************
+3. See the modules that get inserted:
+	cat /proc/modules | grep "para"
+
+output : **************************************************************
+	 *  para_pass 16384 0 - Live 0x00000000 (OE)
+	 **************************************************************
+
+4. Remove module
+	sudo rmmod para_pass
+   See the output :
+	dmesg | tail -3
+
+output : **************************************************************
+	 *
+	 [21707.089461] ~~~~~~~Exiting ...
+[21707.089466] File : /home/spanidea/Desktop/drivers/par_pass/para_pass.c, function : exit_function, line : 108
+
+	 *
+	 **************************************************************

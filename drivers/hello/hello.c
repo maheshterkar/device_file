@@ -1,0 +1,81 @@
+/************************************************************************************************
+@ileName : hello_driver.c
+@author	 : mahesh Terkar 
+@teamLead: Rajesh Dommaraju 
+@etails  : It is a simple HelloWorld driver to load a module in the kernel  
+@icense  : SpanIdea Systems Pvt. Ltd. All rights reserved.
+************************************************************************************************/
+
+/*******************************************************************************
+			INCLUDES
+*******************************************************************************/
+
+#include <linux/init.h>
+#include <linux/module.h>
+
+/*******************************************************************************
+			 LOCAL MACROS		
+*******************************************************************************/
+
+#define GPL_LICENSE				"GPL"
+#define DRIVER_MODULE_AUTHOR			"SPANIDEA"
+#define DRIVER_MODULE_DESC			"Simple Hello World Module"
+#define DRIVER_MODULE_VERSION			"V1.0"
+#define LOCAL					 static
+#define GLOBAL     				extern
+#define RETURN 					
+/*******************************************************************************
+			 LOCAL TYPEDEFS		
+*******************************************************************************/
+
+
+/*******************************************************************************
+			GLOBAL VARIABLES		
+*******************************************************************************/
+
+/*******************************************************************************
+			LOCAL VARIABLES		
+*******************************************************************************/
+
+/*******************************************************************************
+			LOCAL FUNCTIONS		
+*******************************************************************************/
+
+LOCAL RETURN int hello_init(void);
+LOCAL RETURN void hello_exit(void);
+
+
+/**********************************************************************************************
+function	 : hello_init
+description	 : This function is initialised when module gets inserted.
+		   This function is passed as an argument to module_init.
+input param      : NONE
+output param     : NONE
+**********************************************************************************************/
+LOCAL int __init hello_init(void) {
+    printk(KERN_INFO "---->Hello World...\n");
+    printk(KERN_DEBUG "File : %s, function : %s, line : %d\n", __FILE__, __func__, __LINE__);
+    return 0;
+}
+
+/**********************************************************************************************
+function	 : hello_exit
+description	 : This function is initialised when module gets removed.
+		   This function is passed as an argument to module_exit.
+input param      : NONE
+output param     : NONE
+**********************************************************************************************/
+LOCAL void __exit hello_exit(void) {
+    printk(KERN_INFO"---->Exiting ...\n"); 
+    printk("File : %s, function : %s, line : %d\n", __FILE__, __func__, __LINE__);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+
+MODULE_LICENSE(GPL_LICENSE);
+MODULE_AUTHOR(DRIVER_MODULE_AUTHOR);
+MODULE_VERSION(DRIVER_MODULE_VERSION);
+MODULE_DESCRIPTION(DRIVER_MODULE_DESC);
+
